@@ -24593,14 +24593,38 @@
 	    repos: React.PropTypes.array.isRequired
 	  },
 	  render: function render() {
-	    console.log("BIO", this.props.bio);
+	    var repos = this.props.repos.map(function (repo, index) {
+	      return React.createElement(
+	        "li",
+	        { className: "list-group-item", key: index },
+	        repo.html_url && React.createElement(
+	          "h4",
+	          null,
+	          React.createElement(
+	            "a",
+	            { href: repo.html_url },
+	            repo.name
+	          )
+	        ),
+	        repo.description && React.createElement(
+	          "p",
+	          null,
+	          repo.description
+	        )
+	      );
+	    });
 	    return React.createElement(
 	      "div",
 	      null,
 	      React.createElement(
-	        "p",
+	        "h3",
 	        null,
-	        "Repos!"
+	        "User Repos"
+	      ),
+	      React.createElement(
+	        "ul",
+	        { className: "list-group" },
+	        repos
 	      )
 	    );
 	  }
@@ -24628,16 +24652,70 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement(
-	        "p",
-	        null,
-	        "User Profile!"
+	      this.props.bio.avatar_url && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        " ",
+	        React.createElement("img", { src: this.props.bio.avatar_url, className: "img-rounded img-responsive" })
 	      ),
-	      React.createElement(
-	        "p",
-	        null,
+	      this.props.bio.name && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Name: ",
+	        this.props.bio.name
+	      ),
+	      this.props.bio.login && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
 	        "Username: ",
-	        this.props.username
+	        this.props.bio.login
+	      ),
+	      this.props.bio.email && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Email: ",
+	        this.props.bio.email
+	      ),
+	      this.props.bio.location && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Location: ",
+	        this.props.bio.location
+	      ),
+	      this.props.bio.company && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Company: ",
+	        this.props.bio.company
+	      ),
+	      this.props.bio.followers && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Followers: ",
+	        this.props.bio.followers
+	      ),
+	      this.props.bio.following && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Following: ",
+	        this.props.bio.following
+	      ),
+	      this.props.bio.following && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Public Repos: ",
+	        this.props.bio.public_repos
+	      ),
+	      this.props.bio.blog && React.createElement(
+	        "li",
+	        { className: "list-group-item" },
+	        "Blog: ",
+	        React.createElement(
+	          "a",
+	          { href: this.props.bio.blog },
+	          " ",
+	          this.props.bio.blog
+	        )
 	      )
 	    );
 	  }
