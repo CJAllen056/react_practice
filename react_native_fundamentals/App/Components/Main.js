@@ -1,4 +1,5 @@
 import React from "react";
+var api = require("../Utils/api");
 
 import {
 	View,
@@ -72,7 +73,26 @@ class Main extends React.Component{
 		this.setState({
 			isLoading: true
 		});
-		console.log("submit");
+		api.getBio(this.state.username)
+			.then((res) => {
+				if (res.message === "Not found") {
+					this.setState({
+						error: "User not found",
+						isLoading: false
+					});
+				} else {
+					this.props.navigator.push({
+						title: res.name || "Select an option",
+						component: Dashboard,
+						passProps: { userInfo: res }
+					});
+					this.setState({
+						isLoading: false,
+						error: false,
+						username: ""
+					})
+				}
+			});
 	}
 	render() {
 		return (
