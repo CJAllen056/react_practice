@@ -3,7 +3,10 @@ import React from "react";
 import {
 	View,
 	Text,
-	StyleSheet
+	StyleSheet,
+	TextInput,
+	TouchableHighlight,
+	ActivityIndicatorIOS
 } from "react-native";
 
 
@@ -52,10 +55,40 @@ var styles = StyleSheet.create({
 });
 
 class Main extends React.Component{
+	constructor(props) {
+		super(props);
+		this.state = {
+			username: "",
+			isLoading: false,
+			error: false
+		}
+	}
+	handleChange(event) {
+		this.setState({
+			username: event.nativeEvent.text
+		});
+	}
+	handleSubmit() {
+		this.setState({
+			isLoading: true
+		});
+		console.log("submit");
+	}
 	render() {
 		return (
 			<View style={styles.mainContainer}>
-				<Text>Testing the router</Text>
+				<Text style={styles.title}>Search for a Github user</Text>
+				<TextInput
+					style={styles.searchInput}
+					value={this.state.username}
+					onChange={this.handleChange.bind(this)}
+				/>
+				<TouchableHighlight
+					style={styles.button}
+					onPress={this.handleSubmit.bind(this)}
+					underlayColor="white">
+					<Text style={styles.buttonText}>SEARCH</Text>
+				</TouchableHighlight>
 			</View>
 		);
 	}
