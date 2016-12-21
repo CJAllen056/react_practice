@@ -1,5 +1,6 @@
 import React from "react";
 var api = require("../Utils/api");
+import Dashboard from "./Dashboard.js"
 
 import {
 	View,
