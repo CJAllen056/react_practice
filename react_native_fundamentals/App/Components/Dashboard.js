@@ -1,5 +1,7 @@
 var React = require("react");
 var Profile = require("./Profile");
+var Repositories = require("./Repositories");
+var api = require("../Utils/api");
 
 import {
 	Text,
@@ -50,7 +52,17 @@ class Dashboard extends React.Component{
 			passProps: {userInfo: this.props.userInfo}
 		});
 	}	goToRepos() {
-		console.log("going to repos Page");
+		api.getRepos(this.props.userInfo.login)
+			.then((res) => {
+				this.props.navigator.push({
+				component: Repositories,
+				title: "Repositories Page",
+				passProps: {
+					userInfo: this.props.userInfo,
+					repos: res
+				}
+		});
+	});
 	}	goToNotes() {
 		console.log("going to notes Page");
 	}
