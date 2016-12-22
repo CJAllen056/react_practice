@@ -1,6 +1,7 @@
 var React = require("react");
 var Profile = require("./Profile");
 var Repositories = require("./Repositories");
+var Notes = require("./Notes");
 var api = require("../Utils/api");
 
 import {
@@ -64,7 +65,18 @@ class Dashboard extends React.Component{
 		});
 	});
 	}	goToNotes() {
-		console.log("going to notes Page");
+		api.getNotes(this.props.username)
+			.then((res) => {
+				res = res || {};
+				this.props.navigator.push({
+					component: Notes,
+					title: "Notes",
+					paaProps: {
+						notes: res,
+						userInfo: this.props.userInfo
+					}
+				});
+			});
 	}
 	render() {
 		return (

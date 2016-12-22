@@ -57,7 +57,7 @@ class Notes extends React.Component{
 	}
 	handleChange(event) {
 		this.setState({
-			note: event.nativeEvent.text;
+			note: event.nativeEvent.text
 		});
 	}
 	handleSubmit() {
@@ -71,7 +71,7 @@ class Notes extends React.Component{
 				api.getNotes(this.props.userInfo.login)
 					.then((data) => {
 						this.setState({
-							dataSource: this.ds.cloneWithRows(data);
+							dataSource: this.ds.cloneWithRows(data)
 						});
 					});
 			}).catch((err) => {
@@ -100,20 +100,22 @@ class Notes extends React.Component{
 				<TouchableHighlight
 					style={styles.button}
 					onPress={this.handleSubmit.bind(this)}
-					underlayColor={#88D4F5}>
+					underlayColor="#88D4F5">
 					<Text style={styles.buttonText}>Submit</Text>
 				</TouchableHighlight>
 			</View>
 		)
 	}
 	render() {
-		<View style={styles.container}>
-			<ListView
-				dataSource={this.state.dataSource}
-				render={this.renderRow}
-				renderHeader={() => <Badge userInfo={this.props.userInfo} />} />
-			{this.footer()}
-		</View>
+		return (
+			<View style={styles.container}>
+				<ListView
+					dataSource={this.state.dataSource}
+					render={this.renderRow}
+					renderHeader={() => <Badge userInfo={this.props.userInfo} />} />
+				{this.footer()}
+			</View>
+		)
 	}
 }
 
