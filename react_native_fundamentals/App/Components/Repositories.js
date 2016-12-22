@@ -1,6 +1,7 @@
 var React = require("react");
 var Badge = require("./Badge");
 var Separator = require("./Helpers/Separator");
+var Web_View = require("./Helpers/WebView");
 
 import {
 	ScrollView,
@@ -37,7 +38,12 @@ var styles = StyleSheet.create({
 
 class Repositories extends React.Component {
 	openPage(url) {
-		console.log("the url is " + url);
+		var url = {uri: url};
+		this.props.navigator.push({
+			component: Web_View,
+			title: "Web View",
+			passProps: {url}
+		});
 	}
 	render() {
 		var repos = this.props.repos;
