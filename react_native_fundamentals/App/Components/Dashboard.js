@@ -1,4 +1,5 @@
 var React = require("react");
+var Profile = require("./Profile");
 
 import {
 	Text,
@@ -43,7 +44,11 @@ class Dashboard extends React.Component{
 		return obj;
 	}
 	goToProfile() {
-		console.log("going to profile Page");
+		this.props.navigator.push({
+			component: Profile,
+			title: 'Profile Page',
+			passProps: {userInfo: this.props.userInfo}
+		});
 	}	goToRepos() {
 		console.log("going to repos Page");
 	}	goToNotes() {
