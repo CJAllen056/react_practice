@@ -8,7 +8,7 @@ import {
 	StyleSheet,
 	TextInput,
 	TouchableHighlight,
-	ActivityIndicatorIOS
+	ActivityIndicator
 } from "react-native";
 
 
@@ -96,6 +96,9 @@ class Main extends React.Component{
 			});
 	}
 	render() {
+		var showErr = (
+			this.state.err ? <Text>{this.state.err}</Text> : <View></View>
+		);
 		return (
 			<View style={styles.mainContainer}>
 				<Text style={styles.title}>Search for a Github user</Text>
@@ -110,6 +113,12 @@ class Main extends React.Component{
 					underlayColor="white">
 					<Text style={styles.buttonText}>SEARCH</Text>
 				</TouchableHighlight>
+				<ActivityIndicator
+					animating={this.state.isLoading}
+					color="#111"
+					size="large"
+				></ActivityIndicator>
+				{showErr}
 			</View>
 		);
 	}
