@@ -1,24 +1,29 @@
-// d3.json loads the data. Can also use .csv or .tsv if data is in that format
+var scores = [
+  { name: 'Alice', score: 96 },
+  { name: 'Billy', score: 83 },
+  { name: 'Cindy', score: 91 },
+  { name: 'David', score: 96 },
+  { name: 'Emily', score: 88 }
+];
 
-d3.json('data/data.json', function (data) {
+var update = d3.select(".chart") // selects all divs within the chart element in the dom, and joins it with the scores data above
+  .selectAll("div")
+  .data(scores, function(d) {
+    return d ? d.name : this.innerText;
+  })
+  .style("color", "blue");
 
-  // d3.extent returns the range of data for a given value (in this case age) d3.max and d3.min can also be used
+var enter = update.enter()
+  .append("div")
+  .text(function(d) {
+    return d.name;
+  })
+  .style("color", "green");
 
-  var extent = d3.extent(data, function (d) {
-    return d.age;
-  });
-  console.log(extent);
+update.exit().remove();
 
-  // The value found above is used to map the ages within the data to a linear scale
-
-  var scale = d3.scaleLinear()
-    .domain(extent)
-    .range([0, 600]);
-    
-  console.log(scale(37));
-
-  var ages = d3.set(data, function (d) {
-    return d.age;
-  });
-  console.log(ages.values());
-});
+update.merge(enter)
+  .style("width", d => d.score + "px")
+  .style("height", "50px")
+  .style("background", "lightgreen")
+  .style("border", "1px solid black");
